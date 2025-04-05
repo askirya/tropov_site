@@ -1,0 +1,28 @@
+{
+  "products": [
+    {
+      "id": 1,
+      "name": "Кожаный кошелек",
+      "description": "Классический кошелек ручной работы из натуральной кожи. Отличный выбор для повседневного использования.",
+      "category": "wallets",
+      "price": 3500,
+      "image": "https://i.ibb.co/pBfZTC2L/photo-2024-09-06-01-15-09-prev-ui.png"
+    },
+    {
+      "id": 2,
+      "name": "Сумка через плечо",
+      "description": "Стильная сумка из натуральной кожи",
+      "category": "bags",
+      "price": 7500,
+      "image": "https://via.placeholder.com/300x200.png?text=Сумка"
+    },
+    {
+      "id": 3,
+      "name": "Кожаный ремень",
+      "description": "Прочный ремень с классической пряжкой",
+      "category": "accessories",
+      "price": 2500,
+      "image": "https://via.placeholder.com/300x200.png?text=Ремень"
+    }
+  ]
+} 

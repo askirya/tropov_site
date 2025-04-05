@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tropov - Изделия из кожи ручной работы</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">
+                <h1>Tropov</h1>
+            </div>
+            <div class="nav-links">
+                <a href="#products" class="nav-link active">Товары</a>
+                <a href="#about" class="nav-link">О нас</a>
+                <a href="#contact" class="nav-link">Контакты</a>
+            </div>
+        </nav>
+    </header>
+
+    <main class="container">
+        <section id="products" class="section">
+            <h2 class="section-title">Наши изделия</h2>
+            <div class="search-filter">
+                <input type="text" id="searchInput" placeholder="Поиск товаров...">
+                <select id="filterSelect">
+                    <option value="all">Все категории</option>
+                    <option value="wallets">Кошельки</option>
+                    <option value="bags">Сумки</option>
+                    <option value="accessories">Аксессуары</option>
+                </select>
+            </div>
+            <div id="productsContainer" class="products-container"></div>
+        </section>
+
+        <section id="about" class="section">
+            <h2 class="section-title">О нас</h2>
+            <div class="about-content">
+                <p>Мы создаем уникальные изделия из натуральной кожи ручной работы. Каждое изделие - это результат тщательной работы нашего мастера, который вкладывает душу в каждую деталь.</p>
+                <p>Наша миссия - создавать качественные и долговечные аксессуары, которые будут радовать вас долгие годы.</p>
+            </div>
+        </section>
+
+        <section id="contact" class="section">
+            <h2 class="section-title">Связаться с нами</h2>
+            <div class="contact-content">
+                <form id="contactForm" class="contact-form">
+                    <input type="text" name="name" placeholder="Ваше имя" required>
+                    <input type="email" name="email" placeholder="Ваш email" required>
+                    <textarea name="message" placeholder="Ваше сообщение" required></textarea>
+                    <button type="submit">Отправить</button>
+                </form>
+                <div class="contact-info">
+                    <h3>Контактная информация</h3>
+                    <p>Email: info@tropov.ru</p>
+                    <p>Телефон: +7 915 487-90-98</p>
+                    <p>Адрес: г. Сергиев Посад, ул. Вокзальная 1, д. 1</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="admin" class="admin-panel">
+            <h2>Административная панель</h2>
+            <div class="admin-controls">
+                <button id="addProductBtn">Добавить товар</button>
+                <button id="exportProductsBtn">Экспорт товаров</button>
+            </div>
+            
+            <form id="productForm" style="display: none;">
+                <input type="text" id="productName" name="productName" placeholder="Название товара" required>
+                <textarea id="productDescription" name="productDescription" placeholder="Описание товара" required></textarea>
+                <select id="productCategory" name="productCategory" required>
+                    <option value="">Выберите категорию</option>
+                    <option value="wallets">Кошельки</option>
+                    <option value="bags">Сумки</option>
+                    <option value="accessories">Аксессуары</option>
+                </select>
+                <input type="number" id="productPrice" name="productPrice" placeholder="Цена" required>
+                <input type="url" id="productImage" name="productImage" placeholder="Ссылка на изображение (например, https://disk.yandex.ru/i/...)" pattern="https?://.+" title="Введите корректный URL, начинающийся с http:// или https://">
+                <div class="form-buttons">
+                    <button type="submit">Сохранить</button>
+                    <button type="button" id="cancelProductBtn">Отмена</button>
+                </div>
+            </form>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-info">
+                <h3>Tropov</h3>
+                <p>Изделия из кожи ручной работы</p>
+            </div>
+            <div class="footer-links">
+                <a href="#products">Товары</a>
+                <a href="#about">О нас</a>
+                <a href="#contact">Контакты</a>
+            </div>
+            <div class="footer-admin">
+                <button id="adminLoginBtn" class="admin-login-btn">Войти в админ-панель</button>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 Tropov. Все права защищены</p>
+        </div>
+    </footer>
+
+    <script src="app.js"></script>
+</body>
+</html>

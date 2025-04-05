@@ -1,0 +1,10 @@
+[
+  {
+    "id": 1,
+    "name": "Кожаный кошелек",
+    "description": "Классический кошелек ручной работы",
+    "category": "wallets",
+    "price": 3500,
+    "image": "images/placeholder.jpg"
+  }
+]
