@@ -689,43 +689,68 @@ footer {
     }
 }
 
-/* Поддержка тёмной темы системы */
-@media (prefers-color-scheme: dark) {
-    :root {
-        --background-color: #1a1a1a;
-        --text-color: #ffffff;
-        --primary-color: #ffffff;
-        --secondary-color: #a0a0a0;
-    }
+/* Theme Toggle Button */
+.theme-toggle {
+    background: none;
+    border: none;
+    color: var(--text-color);
+    font-size: 1.2rem;
+    padding: 0.5rem;
+    cursor: pointer;
+    transition: transform var(--transition-speed);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
 
-    .product-card,
-    .contact-info,
-    header,
-    footer,
-    .admin-panel,
-    #productForm {
-        background-color: #2d2d2d;
-    }
+.theme-toggle:hover {
+    transform: scale(1.1);
+    background: none;
+}
 
-    .product-description {
-        color: #b0b0b0;
-    }
+.theme-toggle i {
+    transition: transform var(--transition-speed);
+}
 
-    input[type="text"],
-    input[type="email"],
-    input[type="tel"],
-    input[type="number"],
-    select,
-    textarea {
-        background-color: #1a1a1a;
-        color: #ffffff;
-        border-color: #404040;
-    }
+/* Dark Theme */
+[data-theme="dark"] {
+    --background-color: #1a1a1a;
+    --text-color: #ffffff;
+    --primary-color: #ffffff;
+    --secondary-color: #a0a0a0;
+}
 
-    .admin-login-btn {
-        color: #ffffff;
-        border-color: #ffffff;
-    }
+[data-theme="dark"] .product-card,
+[data-theme="dark"] .contact-info,
+[data-theme="dark"] header,
+[data-theme="dark"] footer,
+[data-theme="dark"] .admin-panel,
+[data-theme="dark"] #productForm {
+    background-color: #2d2d2d;
+}
+
+[data-theme="dark"] .product-description {
+    color: #b0b0b0;
+}
+
+[data-theme="dark"] input[type="text"],
+[data-theme="dark"] input[type="email"],
+[data-theme="dark"] input[type="tel"],
+[data-theme="dark"] input[type="number"],
+[data-theme="dark"] select,
+[data-theme="dark"] textarea {
+    background-color: #1a1a1a;
+    color: #ffffff;
+    border-color: #404040;
+}
+
+[data-theme="dark"] .admin-login-btn {
+    color: #ffffff;
+    border-color: #ffffff;
+}
+
+[data-theme="dark"] .theme-toggle i {
+    transform: rotate(-45deg);
 }
 
 /* Поддержка устройств с высоким DPI */

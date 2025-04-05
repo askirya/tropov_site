@@ -40,7 +40,39 @@ document.addEventListener('DOMContentLoaded', () => {
     loadProducts();
     setupEventListeners();
     setupSmoothScroll();
+    setupTheme();
 });
+
+// Настройка темы
+function setupTheme() {
+    const themeToggle = document.getElementById('themeToggle');
+    const savedTheme = localStorage.getItem('theme');
+    
+    // Устанавливаем сохранённую тему или светлую по умолчанию
+    if (savedTheme) {
+        document.documentElement.setAttribute('data-theme', savedTheme);
+        if (savedTheme === 'dark') {
+            themeToggle.querySelector('i').classList.replace('fa-moon', 'fa-sun');
+        }
+    }
+
+    themeToggle.addEventListener('click', () => {
+        const currentTheme = document.documentElement.getAttribute('data-theme');
+        const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+        const icon = themeToggle.querySelector('i');
+
+        document.documentElement.setAttribute('data-theme', newTheme);
+        localStorage.setItem('theme', newTheme);
+
+        // Анимируем смену иконки
+        icon.style.transform = 'scale(0)';
+        setTimeout(() => {
+            icon.classList.toggle('fa-moon');
+            icon.classList.toggle('fa-sun');
+            icon.style.transform = 'scale(1)';
+        }, 150);
+    });
+}
 
 // Плавная прокрутка
 function setupSmoothScroll() {
