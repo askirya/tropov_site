@@ -31,6 +31,9 @@ const DEFAULT_PRODUCTS = [
     }
 ];
 const STORAGE_KEY = 'tropov_products';
+const PRODUCTS_PER_PAGE = 3;
+let currentPage = 1;
+let isShowingAll = false;
 
 // Загрузка продуктов при запуске
 document.addEventListener('DOMContentLoaded', () => {
@@ -81,7 +84,12 @@ function displayProducts(productsToShow) {
     const container = document.getElementById('productsContainer');
     container.innerHTML = '';
 
-    productsToShow.forEach(product => {
+    // Определяем, сколько товаров показывать
+    const endIndex = isShowingAll ? productsToShow.length : Math.min(PRODUCTS_PER_PAGE * currentPage, productsToShow.length);
+    const productsToDisplay = productsToShow.slice(0, endIndex);
+
+    // Отображаем товары
+    productsToDisplay.forEach(product => {
         const card = document.createElement('div');
         card.className = 'product-card';
         
@@ -102,6 +110,54 @@ function displayProducts(productsToShow) {
         
         container.appendChild(card);
     });
+
+    // Обновляем кнопки загрузки
+    updateLoadMoreButtons(productsToShow.length);
+}
+
+// Обновление кнопок загрузки
+function updateLoadMoreButtons(totalProducts) {
+    const loadMoreContainer = document.querySelector('.load-more-container') || document.createElement('div');
+    loadMoreContainer.className = 'load-more-container';
+    loadMoreContainer.innerHTML = '';
+
+    const currentlyShowing = isShowingAll ? totalProducts : Math.min(PRODUCTS_PER_PAGE * currentPage, totalProducts);
+
+    if (totalProducts > PRODUCTS_PER_PAGE) {
+        if (!isShowingAll && currentlyShowing < totalProducts) {
+            const loadMoreBtn = document.createElement('button');
+            loadMoreBtn.className = 'load-more-btn';
+            loadMoreBtn.innerHTML = `
+                Показать ещё
+                <i class="fas fa-chevron-down"></i>
+            `;
+            loadMoreBtn.onclick = () => {
+                currentPage++;
+                displayProducts(products);
+            };
+            loadMoreContainer.appendChild(loadMoreBtn);
+        }
+
+        if (currentlyShowing > PRODUCTS_PER_PAGE) {
+            const showLessBtn = document.createElement('button');
+            showLessBtn.className = 'show-less-btn';
+            showLessBtn.innerHTML = `
+                Показать меньше
+                <i class="fas fa-chevron-up"></i>
+            `;
+            showLessBtn.onclick = () => {
+                currentPage = 1;
+                isShowingAll = false;
+                displayProducts(products);
+            };
+            loadMoreContainer.appendChild(showLessBtn);
+        }
+    }
+
+    const productsContainer = document.getElementById('productsContainer');
+    if (productsContainer.nextElementSibling?.className !== 'load-more-container') {
+        productsContainer.after(loadMoreContainer);
+    }
 }
 
 // Настройка обработчиков событий
