@@ -31,9 +31,13 @@ const DEFAULT_PRODUCTS = [
     }
 ];
 const STORAGE_KEY = 'tropov_products';
-const PRODUCTS_PER_PAGE = 3;
 let currentPage = 1;
 let isShowingAll = false;
+
+// Функция определения количества товаров на странице
+function getProductsPerPage() {
+    return window.innerWidth >= 1400 ? 4 : 3;
+}
 
 // Загрузка продуктов при запуске
 document.addEventListener('DOMContentLoaded', () => {
@@ -41,6 +45,11 @@ document.addEventListener('DOMContentLoaded', () => {
     setupEventListeners();
     setupSmoothScroll();
     setupTheme();
+
+    // Добавляем слушатель изменения размера окна
+    window.addEventListener('resize', () => {
+        displayProducts(products);
+    });
 });
 
 // Настройка темы
@@ -116,8 +125,10 @@ function displayProducts(productsToShow) {
     const container = document.getElementById('productsContainer');
     container.innerHTML = '';
 
+    const productsPerPage = getProductsPerPage();
+    
     // Определяем, сколько товаров показывать
-    const endIndex = isShowingAll ? productsToShow.length : Math.min(PRODUCTS_PER_PAGE * currentPage, productsToShow.length);
+    const endIndex = isShowingAll ? productsToShow.length : Math.min(productsPerPage * currentPage, productsToShow.length);
     const productsToDisplay = productsToShow.slice(0, endIndex);
 
     // Отображаем товары
@@ -153,24 +164,30 @@ function updateLoadMoreButtons(totalProducts) {
     loadMoreContainer.className = 'load-more-container';
     loadMoreContainer.innerHTML = '';
 
-    const currentlyShowing = isShowingAll ? totalProducts : Math.min(PRODUCTS_PER_PAGE * currentPage, totalProducts);
+    const productsPerPage = getProductsPerPage();
+    const currentlyShowing = isShowingAll ? totalProducts : Math.min(productsPerPage * currentPage, totalProducts);
 
-    if (totalProducts > PRODUCTS_PER_PAGE) {
+    if (totalProducts > productsPerPage) {
         if (!isShowingAll && currentlyShowing < totalProducts) {
             const loadMoreBtn = document.createElement('button');
             loadMoreBtn.className = 'load-more-btn';
             loadMoreBtn.innerHTML = `
-                Показать ещё
+                Показать ещё ${Math.min(productsPerPage, totalProducts - currentlyShowing)} товаров
                 <i class="fas fa-chevron-down"></i>
             `;
             loadMoreBtn.onclick = () => {
                 currentPage++;
                 displayProducts(products);
+                // Плавная прокрутка к новым товарам
+                const lastVisibleProduct = document.querySelector('.product-card:last-child');
+                if (lastVisibleProduct) {
+                    lastVisibleProduct.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
             };
             loadMoreContainer.appendChild(loadMoreBtn);
         }
 
-        if (currentlyShowing > PRODUCTS_PER_PAGE) {
+        if (currentlyShowing > productsPerPage) {
             const showLessBtn = document.createElement('button');
             showLessBtn.className = 'show-less-btn';
             showLessBtn.innerHTML = `
@@ -181,6 +198,11 @@ function updateLoadMoreButtons(totalProducts) {
                 currentPage = 1;
                 isShowingAll = false;
                 displayProducts(products);
+                // Плавная прокрутка к началу списка товаров
+                const productsSection = document.querySelector('#products');
+                if (productsSection) {
+                    productsSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
             };
             loadMoreContainer.appendChild(showLessBtn);
         }
